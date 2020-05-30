@@ -15,10 +15,10 @@ var height = svgHeight - margin.top - margin.bottom;
 // Create an SVG wrapper, append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
 var svg = d3
-.select("#scatter")
-.append("svg")
-.attr("width", svgWidth)
-.attr("height", svgHeight);
+  .select("#scatter")
+  .append("svg")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
 
 // Append an SVG group
 var chartGroup = svg.append("g")
@@ -44,10 +44,7 @@ function xScale(dataPaper, chosenXAxis) {
 
 // function used for updating y-scale var upon click on axis label
 function yScale(dataPaper, chosenYAxis) {
-  console.log("chosenYAxis", chosenYAxis)
-  console.log("dataPaper", dataPaper)
-  console.log("d3.min(dataPaper, d => d[chosenYAxis]", d3.min(dataPaper, d => d[chosenYAxis]))
-  console.log("d3.max(dataPaper, d => d[chosenYAxis])", d3.max(dataPaper, d => d[chosenYAxis]))
+
     // create scales
     var yLinearScale = d3.scaleLinear()
       .domain([d3.min(dataPaper, d => d[chosenYAxis]) * 0.8,
@@ -237,14 +234,37 @@ d3.csv("assets/data/data.csv").then(function(dataPaper, err) {
   // x axis labels event listener
   xLabelsGroup.selectAll("text")
     .on("click", function() {
+
+      //make all options inactive
+      xLabelsGroup.selectAll("text").classed("active",false).classed("inactive",true)
+      
       // get value of selection
       var value = d3.select(this).attr("value");
+
+      //activate selected axis
+      switch (value){
+        case "poverty":
+          d3.select(this)
+            .classed("active", true)
+            .classed("inactive", false)
+        break;
+        case "age":
+          d3.select(this)
+            .classed("active", true)
+            .classed("inactive", false)
+        break;
+        case "income":
+          d3.select(this)
+            .classed("active", true)
+            .classed("inactive", false)
+        break;
+      }
+
+      //render data on chart
       if (value !== chosenXAxis) {
 
         // replaces chosenXAxis with value
         chosenXAxis = value;
-        //console.log("chosenXAxis", chosenXAxis)
-        // console.log(chosenXAxis)
 
         // functions here found above csv import
         // updates x scale for new data
@@ -265,14 +285,36 @@ d3.csv("assets/data/data.csv").then(function(dataPaper, err) {
   // y axis labels event listener
   yLabelsGroup.selectAll("text")
     .on("click", function() {
+
+      //make all options inactive
+      yLabelsGroup.selectAll("text").classed("active",false).classed("inactive",true)
+      
       // get value of selection
       var value = d3.select(this).attr("value");
+
+      //activate selected axis
+      switch (value){
+        case "obesity":
+          d3.select(this)
+            .classed("active", true)
+            .classed("inactive", false)
+        break;
+        case "smokes":
+          d3.select(this)
+            .classed("active", true)
+            .classed("inactive", false)
+        break;
+        case "healthcareLow":
+          d3.select(this)
+            .classed("active", true)
+            .classed("inactive", false)
+        break;
+      }
+      
       if (value !== chosenYAxis) {
 
         // replaces chosenYAxis with value
         chosenYAxis = value;
-        //console.log("chosenXAxis", chosenXAxis)
-        // console.log(chosenXAxis)
 
         // functions here found above csv import
         // updates y scale for new data
