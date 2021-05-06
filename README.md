@@ -1,4 +1,4 @@
-# D3-challenge
+# A simple interactive chart
 
 The site has been deployed at the following link: https://florin-vasiliu.github.io/D3-challenge/
 
